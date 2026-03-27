@@ -25,12 +25,20 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           set -e
-          test -n "$VPS_USER"
-          test -n "$VPS_HOST"
-          test -n "$VPS_REMOTE_PATH"
+          if [ -z "$VPS_USER" ]; then
+            echo "ERROR: VPS_USER is empty"; exit 1;
+          fi
+          if [ -z "$VPS_HOST" ]; then
+            echo "ERROR: VPS_HOST is empty"; exit 1;
+          fi
+          if [ -z "$VPS_REMOTE_PATH" ]; then
+            echo "ERROR: VPS_REMOTE_PATH is empty"; exit 1;
+          fi
           PORT="${VPS_PORT:-22}"
           mkdir -p ~/.ssh
+          echo "Using host=$VPS_HOST port=$PORT user=$VPS_USER path=$VPS_REMOTE_PATH"
           ssh-keyscan -p "$PORT" -H "$VPS_HOST" >> ~/.ssh/known_hosts
+          ssh -o BatchMode=yes -o ConnectTimeout=10 -p "$PORT" "$VPS_USER@$VPS_HOST" "echo SSH_OK"
           rsync -av --delete \
             --exclude ".git/" \
             --exclude ".github/" \
