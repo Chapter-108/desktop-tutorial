@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" fill="#0f172a"/>
+  <text x="60" y="90" fill="#e2e8f0" font-size="44" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">TCP 传输流程（简化）</text>
+  <rect x="90" y="150" width="260" height="80" rx="14" fill="#334155"/><text x="145" y="202" fill="#fff" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">发送端</text>
+  <rect x="850" y="150" width="260" height="80" rx="14" fill="#334155"/><text x="905" y="202" fill="#fff" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">接收端</text>
+  <path d="M360 190 L840 190" stroke="#60a5fa" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M840 250 L360 250" stroke="#22d3ee" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M360 310 L840 310" stroke="#60a5fa" stroke-width="4" marker-end="url(#a)"/>
+  <text x="460" y="175" fill="#bae6fd" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">SYN</text>
+  <text x="495" y="238" fill="#99f6e4" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">SYN-ACK</text>
+  <text x="470" y="298" fill="#bae6fd" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">ACK</text>
+  <text x="60" y="430" fill="#cbd5e1" font-size="28" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">特点：握手、确认、重传、顺序交付（可靠但成本更高）</text>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#93c5fd"/></marker></defs>
+</svg>

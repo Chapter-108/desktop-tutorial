@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" fill="#082f49"/>
+  <text x="60" y="90" fill="#e0f2fe" font-size="44" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">UDP 传输流程（简化）</text>
+  <rect x="90" y="150" width="260" height="80" rx="14" fill="#0369a1"/><text x="145" y="202" fill="#fff" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">发送端</text>
+  <rect x="850" y="150" width="260" height="80" rx="14" fill="#0369a1"/><text x="905" y="202" fill="#fff" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">接收端</text>
+  <path d="M360 175 L840 175" stroke="#38bdf8" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M360 235 L840 235" stroke="#38bdf8" stroke-width="4" marker-end="url(#a)" stroke-dasharray="8 6"/>
+  <path d="M360 295 L840 295" stroke="#38bdf8" stroke-width="4" marker-end="url(#a)"/>
+  <text x="455" y="160" fill="#bae6fd" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">Packet #1</text>
+  <text x="455" y="220" fill="#bae6fd" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">Packet #2（可能丢）</text>
+  <text x="455" y="280" fill="#bae6fd" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">Packet #3</text>
+  <text x="60" y="430" fill="#dbeafe" font-size="28" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">特点：无握手、无重传、低开销（实时优先，丢包可接受）</text>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#7dd3fc"/></marker></defs>
+</svg>

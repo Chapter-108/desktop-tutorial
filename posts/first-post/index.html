@@ -1,0 +1,155 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>别再被八股文忽悠了：用两只猪的故事，彻底搞懂 TCP 与 UDP - 炼气修士|个人博客</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="application-name" content="炼气修士|个人博客">
+<meta name="description" content="用两只猪的故事，通俗彻底搞懂 TCP 与 UDP，并延伸到 SOCKS5、TCP in TCP、QUIC/HTTP3 的实战意义。">
+<link rel="icon" href="/img/avatar.png">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro">
+<link rel="stylesheet" href="/css/default.css">
+<link rel="stylesheet" href="/css/custom.css">
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+</head>
+<body class="is-3-column">
+<nav class="navbar navbar-main">
+<div class="container">
+<div class="navbar-brand justify-content-center">
+<a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="炼气修士|个人博客" height="28"></a>
+</div>
+<div class="navbar-menu">
+<div class="navbar-start">
+<a class="navbar-item" href="/.">主页</a>
+<a class="navbar-item" href="/categories">分类</a>
+<a class="navbar-item" href="/archives">归档</a>
+<a class="navbar-item" href="/about">关于</a>
+</div>
+<div class="navbar-end">
+<a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a>
+</div>
+</div>
+</div>
+</nav>
+<section class="section">
+<div class="container">
+<div class="columns">
+<div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen">
+<div class="card">
+<article class="card-content article" role="article">
+<h1 class="title is-size-3 is-size-4-mobile has-text-weight-semibold article-main-title">
+<span class="has-text-dark"><i class="fas fa-angle-double-right"></i>别再被八股文忽悠了：用两只猪的故事，彻底搞懂 TCP 与 UDP</span>
+</h1>
+<div class="article-meta is-size-7 is-uppercase level is-mobile">
+<div class="level-left">
+<span class="level-item"><i class="far fa-calendar-alt"></i>&nbsp;<time>2026-03-27</time></span><span class="level-item"><a class="link-muted" href="/categories/network/">网络</a></span>
+</div>
+</div>
+<div class="content">
+<p>如果你在网上搜索“TCP 和 UDP 的区别”，大概率会被“面向连接”、“面向报文”、“滑动窗口”这些冷冰冰的名词砸晕。</p>
+<p>其实，揭开这层硬核的面纱，它俩不过是互联网世界里性格截然相反的两个“快递员”。今天，我们就撇开那些晦涩的定义，从底层的逻辑甚至平时折腾代理环境时的实际坑点，来重新认识一下这哥俩。</p>
+<p><img src="/img/post/tcp-udp-cover.svg" alt="TCP UDP 封面图"></p>
+
+<h2>TCP：一个强迫症晚期的快递员</h2>
+<p>TCP（传输控制协议）是互联网的基石。如果用一只小猪来比喻它，那它绝对是个强迫症晚期。</p>
+<p>TCP 的人生信条只有一个：绝对可靠。当你让 TCP 帮你传数据时，它的操作简直繁琐得让人抓狂：</p>
+<ul>
+<li><strong>三次握手（加戏王）：</strong> 发包裹前，猪 A 先问猪 B“你在家吗？”；B 回“我在，你发吧”；A 再确认“我也能收，这就发”。打个招呼都要来回三次。</li>
+<li><strong>死磕到底的重传：</strong> 如果没收到“签收回执”，TCP 会定时重发，直到你确认收到为止。</li>
+<li><strong>排队强迫症：</strong> 你发了 1、2、3，结果 3 先到，TCP 也不会先交付 3，必须等 1、2 到齐。这就是队头阻塞。</li>
+</ul>
+<p><strong>典型场景：</strong> 网页加载（HTTP/HTTPS）、文件下载、SSH 登录。少一个字节都不行，所以必须 TCP。</p>
+<p><img src="/img/post/tcp-flow.svg" alt="TCP 流程示意图"></p>
+
+<h2>UDP：一个蒙眼狂奔的暴走狂</h2>
+<p>UDP（用户数据报协议）完全是反着来的：不握手、不确认、不重传，主打一个“快发快走”。</p>
+<ul>
+<li><strong>没有握手，直接上：</strong> 不管对方在不在家，拿到数据就扔出去。</li>
+<li><strong>不管死活，概不负责：</strong> 丢包、乱序都不管，发完就走。</li>
+<li><strong>极其轻便：</strong> UDP 头部只有 8 字节，而 TCP 至少 20 字节。</li>
+</ul>
+<p><strong>典型场景：</strong> 直播、实时语音、视频会议、电竞游戏。比起绝对完整，实时更重要。</p>
+<p><img src="/img/post/udp-flow.svg" alt="UDP 流程示意图"></p>
+
+<h2>进阶干货：为什么折腾代理（如 SOCKS5）必须懂这俩？</h2>
+<h3>1) SOCKS5 的 UDP 转发为什么关键？</h3>
+<p>很多人只把 SOCKS5 的 TCP 打通，结果网页能开，语音或某些服务异常，DNS 解析也慢。根因是很多底层服务本来就在走 UDP，如果代理不支持 UDP 转发，这部分流量就直接“瞎了”。</p>
+
+<h3>2) 臭名昭著的 TCP in TCP 灾难</h3>
+<p>如果你用一个 TCP 隧道再包一层内部 TCP（例如某些 TCP 模式 VPN 里看网页），一旦链路丢包：</p>
+<ol>
+<li>内层 TCP 发现丢包，开始重传。</li>
+<li>外层 TCP 也发现丢包，也开始重传。</li>
+<li>两层拥塞控制互相打架，重传延迟指数级放大。</li>
+</ol>
+<p>最后就是卡到断流，也就是常说的 TCP Meltdown。</p>
+<p><strong>破解思路：</strong> 外层隧道改用 UDP，让外层只负责传输，可靠性交给内层真实 TCP 去处理，避免双重强迫症冲突。</p>
+
+<h2>结语：时代风向正在转向 UDP</h2>
+<p>过去 TCP 统治互联网，但移动网络时代对时延更敏感，TCP 的握手和队头阻塞越来越拖后腿。于是 Google 基于 UDP 推出了 QUIC，并成为 HTTP/3 的核心。</p>
+<p>它保留了 UDP 的快，同时在应用层做了更聪明的可靠性设计。懂了 TCP 和 UDP，不只是面试不慌，更能在代理、隧道、网络优化里少踩无数坑。</p>
+</div>
+</article>
+</div>
+</div>
+<div class="column column-left is-4-tablet is-4-desktop is-3-widescreen order-1">
+<div class="card widget" data-type="profile">
+<div class="card-content">
+<nav class="level">
+<div class="level-item has-text-centered flex-shrink-1">
+<div>
+<figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="炼气修士|个人博客"></figure>
+<p class="title is-size-4 is-block" style="line-height:inherit;">炼气修士</p><p class="is-size-7 has-text-grey">简介：暂无</p>
+</div>
+</div>
+</nav>
+<nav class="level is-mobile">
+<div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">1</p></a></div></div>
+<div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">1</p></a></div></div>
+<div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div>
+</nav>
+<div class="content has-text-centered mt-2"><p class="is-size-7 has-text-grey">社交链接：暂无</p></div>
+</div>
+</div>
+<div class="column-right-shadow is-hidden-widescreen"></div>
+</div>
+<div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3">
+<div class="card widget" data-type="recent-posts">
+<div class="card-content"><h3 class="menu-label">最新文章</h3>
+<article class="media"><div class="media-content"><p class="date"><time>2026-03-27</time></p><p class="title"><a href="/posts/first-post/">别再被八股文忽悠了：用两只猪的故事，彻底搞懂 TCP 与 UDP</a></p><p class="categories"><a href="/categories/network/">网络</a></p></div></article>
+</div></div>
+</div>
+</div>
+</div>
+</section>
+<footer class="footer">
+<div class="container">
+<div class="level">
+<div class="level-start">
+<a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="炼气修士|个人博客" height="28"></a>
+<p class="is-size-7"><span>&copy; 2026 炼气修士</span> · 静态博客（Icarus 主题样式）</p>
+</div>
+</div>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+<script src="/js/column.js"></script>
+<script src="/js/animation.js"></script>
+<a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a>
+<script src="/js/back_to_top.js" defer></script>
+<script src="/js/main.js" defer></script>
+<script src="/js/rainfx.js" defer></script>
+<div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div>
+<script src="/js/insight.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function () {
+loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+});</script>
+</body>
+</html>
+

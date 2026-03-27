@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="70" y="135" fill="#e2e8f0" font-size="42" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">本地 AI 离线部署体验</text>
+  <text x="70" y="220" fill="#ffffff" font-size="64" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">U-Claw：雨林木风风格的一键虾盘</text>
+  <rect x="72" y="285" width="340" height="64" rx="14" fill="#0ea5e9"/>
+  <text x="112" y="329" fill="#ecfeff" font-size="34" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">免翻墙 · 离线安装</text>
+  <rect x="72" y="368" width="300" height="58" rx="14" fill="#334155"/>
+  <text x="108" y="406" fill="#e2e8f0" font-size="30" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">Air-gapped 更安心</text>
+  <text x="70" y="520" fill="#94a3b8" font-size="30" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">GitHub: dongsheng123132/u-claw</text>
+</svg>

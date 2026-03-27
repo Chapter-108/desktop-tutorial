@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" fill="#082f49"/>
+  <text x="58" y="88" fill="#e0f2fe" font-size="44" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">U-Claw 三个核心价值</text>
+  <rect x="80" y="150" width="320" height="250" rx="16" fill="#0c4a6e"/>
+  <text x="110" y="205" fill="#f0f9ff" font-size="34" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">离线可装</text>
+  <text x="110" y="250" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">免翻墙</text>
+  <text x="110" y="286" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">环境一致</text>
+  <rect x="440" y="150" width="320" height="250" rx="16" fill="#075985"/>
+  <text x="470" y="205" fill="#f0f9ff" font-size="34" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">一键安装</text>
+  <text x="470" y="250" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">上手快</text>
+  <text x="470" y="286" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">更少踩坑</text>
+  <rect x="800" y="150" width="320" height="250" rx="16" fill="#0369a1"/>
+  <text x="830" y="205" fill="#f0f9ff" font-size="34" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">物理隔离</text>
+  <text x="830" y="250" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">Air-gapped</text>
+  <text x="830" y="286" fill="#bae6fd" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">数据不出机</text>
+</svg>

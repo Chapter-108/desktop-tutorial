@@ -1,0 +1,17 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1e2b4a"/>
+      <stop offset="100%" stop-color="#0b1324"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="70" y="150" fill="#dbeafe" font-size="46" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">别再被八股文忽悠了</text>
+  <text x="70" y="220" fill="#ffffff" font-size="64" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">两只猪讲透 TCP 与 UDP</text>
+  <circle cx="250" cy="430" r="120" fill="#334155"/>
+  <text x="190" y="445" fill="#e2e8f0" font-size="56" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">TCP</text>
+  <circle cx="520" cy="430" r="120" fill="#0ea5e9"/>
+  <text x="460" y="445" fill="#f0f9ff" font-size="56" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">UDP</text>
+  <text x="700" y="410" fill="#cbd5e1" font-size="36" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">可靠 vs 实时</text>
+  <text x="700" y="470" fill="#cbd5e1" font-size="30" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif">代理、隧道、QUIC 全串起来</text>
+</svg>
