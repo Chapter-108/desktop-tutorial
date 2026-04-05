@@ -42,5 +42,7 @@ jobs:
           rsync -av --delete \
             --exclude ".git/" \
             --exclude ".github/" \
+            --exclude ".superpowers/" \
+            --exclude "docs/" \
             --exclude "README.md" \
             -e "ssh -p $PORT" ./ "$VPS_USER@$VPS_HOST:$VPS_REMOTE_PATH/"
