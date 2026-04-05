@@ -39,10 +39,11 @@ jobs:
           echo "Using host=$VPS_HOST port=$PORT user=$VPS_USER path=$VPS_REMOTE_PATH"
           ssh-keyscan -p "$PORT" -H "$VPS_HOST" >> ~/.ssh/known_hosts
           ssh -o BatchMode=yes -o ConnectTimeout=10 -p "$PORT" "$VPS_USER@$VPS_HOST" "echo SSH_OK"
+          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" "mkdir -p /var/www/hugo/public"
           rsync -av --delete \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude ".superpowers/" \
             --exclude "docs/" \
             --exclude "README.md" \
-            -e "ssh -p $PORT" ./ "$VPS_USER@$VPS_HOST:$VPS_REMOTE_PATH/"
+            -e "ssh -p $PORT" ./ "$VPS_USER@$VPS_HOST:/var/www/hugo/public/"
